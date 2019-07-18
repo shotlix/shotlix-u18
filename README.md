@@ -49,18 +49,3 @@ $ yarn prefix
 ```:sh
 $ yarn hot-dev-server
 ```
-
-### docker
-
-#### build
-
-```:docker
-$ docker build -t shotlix .
-```
-
-#### run
-
-```:docker
-$ docker run -p 8000:8000 -it shotlix
-```
-
