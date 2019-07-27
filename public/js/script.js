@@ -1,8 +1,7 @@
 phina.globalize();
-console.log(window.innerWidth);
-console.log(window.innerHeight)
+
 const SCREEN_WIDTH = 1280,
-    SCREEN_HEIGHT = 680,
+    SCREEN_HEIGHT = 760,
     GRID_SIZE = 40,
     GRID_NUM_X = SCREEN_WIDTH / GRID_SIZE,
     GRID_NUM_Y = SCREEN_HEIGHT / GRID_SIZE,
@@ -611,14 +610,20 @@ phina.define('MainScene', {
     gameover: function () {
         if (!is_finished) {
             is_finished = true;
-            $("body").append("<div id='black-cover'></div>").hide().fadeIn(500);
-            $("#black-cover").append("<h1>Your Score was " + String(this.snake.score) + "</h1>").hide().fadeIn(1000);
+            const div = document.createElement("div");
+            div.id = "black-cover";
+            const body = document.getElementsByTagName("body");
+            body[0].appendChild(div);
+            const h1 = document.createElement("h1");
+            h1.textContent = "Your Score was " + String(this.snake.score);
+            div.appendChild(h1);
         }
         const self = this;
         setTimeout(function () {
             // 少し�?ってからタイトル画面へ
             if (!is_submitted) {
-                location.href = "/";
+                location.href = "http://localhost:8000/";
+                is_submitted = true;
             }
         }, 2000);
     },
@@ -800,8 +805,8 @@ phina.define('Bullet', {
 phina.main(function () {
     GameApp({
         startLabel: 'main',
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
         assets: ASSETS
     }).run();
 });
