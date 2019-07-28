@@ -49,3 +49,9 @@ $ yarn prefix
 ```:sh
 $ yarn hot-dev-server
 ```
+
+#### run electron
+
+```:sh
+$ electron ./
+```
