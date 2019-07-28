@@ -87,20 +87,20 @@ for (let i = 0; i < GRID_NUM_Y; i++) {
 //ASSET定義
 const ASSETS = {
     image: {
-        'bulletItem': '../assets/images/bulletItem.png',
-        'pointTwiceItem': '../assets/images/pointTwiceItem.png',
-        'bulletFourItem': '../assets/images/bulletFourItem.png',
+        'bulletItem': './public/assets/images/bulletItem.png',
+        'pointTwiceItem': './public/assets/images/pointTwiceItem.png',
+        'bulletFourItem': './public/assets/images/bulletFourItem.png',
     },
     sound: {
-        'getBullet': '../assets/sounds/getBullet.mp3',
-        'shotBullet': '../assets/sounds/shotBullet.mp3',
-        'dead': '../assets/sounds/dead.mp3',
-        'getNum': '../assets/sounds/getNum.mp3',
-        'alert': '../assets/sounds/alert.mp3',
-        'rodEvent': '../assets/sounds/rodEvent.mp3',
-        'getTwiceItem': '../assets/sounds/getTwiceItem.mp3',
-        'finishLoad': '../assets/sounds/finishLoad.mp3',
-        'getBulletFourItem': '../assets/sounds/getBulletFourItem.mp3'
+        'getBullet': './public/assets/sounds/getBullet.mp3',
+        'shotBullet': './public/assets/sounds/shotBullet.mp3',
+        'dead': './public/assets/sounds/dead.mp3',
+        'getNum': './public/assets/sounds/getNum.mp3',
+        'alert': './public/assets/sounds/alert.mp3',
+        'rodEvent': './public/assets/sounds/rodEvent.mp3',
+        'getTwiceItem': './public/assets/sounds/getTwiceItem.mp3',
+        'finishLoad': './public/assets/sounds/finishLoad.mp3',
+        'getBulletFourItem': './public/assets/sounds/getBulletFourItem.mp3'
     },
 };
 
@@ -795,7 +795,7 @@ phina.define('Bullet', {
             width: BULLET_SIZE,
             height: BULLET_SIZE,
             fill: "white",
-            strokeWidth: 2,
+            strokeWidth: BULLET_SIZE / 5,
             stroke: "black"
         });
         this.direction = '';
