@@ -8,12 +8,11 @@
     "author": "yoshi1125hisa <yoppy1125yoppy@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "start": "node app",
+        "start": "electron ./",
         "scss": "node-sass --watch --include-path public/scss public/scss -o public/css --output-style compressed",
         "prefix": "postcss --use autoprefixer --no-map public/css -d public/css",
         "hot-dev-server": "yarn run webpack-dev-server -- --inline --hot",
-        "psql": "heroku pg:psql -a phina-game",
-        "test": "npm-run-all -p start scss prefix"
+        "psql": "heroku pg:psql -a phina-game"
     },
     "dependencies": {
         "autoprefixer": "^9.6.0",
