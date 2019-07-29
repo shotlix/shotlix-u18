@@ -1,6 +1,7 @@
 body {
   background-color: #ACC3FF;
   overflow: hidden;
+  font-family: fot-tsukubrdgothic-std, sans-serif;
 }
 
 input {
@@ -17,8 +18,12 @@ input {
 }
 
 .container {
-  position: relative;
-  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  background-image: url("../assets/images/normal.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .top-container {
@@ -27,12 +32,11 @@ input {
   width: 100%;
   text-align: center;
   &__ttl {
-    font-family: "Orbitron",sans-serif;
-    font-size: calc(4rem + 2vw);
-    color: white;
+    width: 300px;
+    margin-bottom: 40px;
   }
   &__name {
-    margin: 180px auto 10px auto;
+    margin: 40px auto 10px auto;
     display: block;
     &::-webkit-input-placeholder {
       font-weight: 300;
@@ -56,7 +60,7 @@ input {
     color: white;
     -webkit-transition: 0.3s;
     transition: 0.3s;
-    background-color: #545895;
+    background-color: #7C90F9;
     &:hover {
       background-color: #484b7e;
     }
@@ -118,8 +122,37 @@ input {
   h1 {
     color: white;
     font-size: 80px;
-    font-family: 'Orbitron', 'MS ゴシック';
+    font-family: fot-tsukubrdgothic-std, sans-serif;
+    font-weight: 400;
+    font-style: normal;
   }
+}
+.swiper-container {
+  width: 250px;
+  overflow: hidden;
+}
+.swiper-wrapper {
+  margin-left: calc(50% - 125px);
+}
+.swiper-slide {
+  text-align: center;
+  color: white;
+  font-size: 2.5rem;
+  img {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+.swiper-button-prev {
+  left: calc(50% - 125px) !important;
+}
+
+.swiper-button-next {
+  right: calc(50% - 125px) !important;
 }
 
 .twitter-share{
@@ -142,7 +175,8 @@ input {
   .top-container {
     top: 100px;
     &__ttl {
-      font-size: 3rem;
+      width: 250px;
+      margin-bottom: 40px;
     }
   }
 }
