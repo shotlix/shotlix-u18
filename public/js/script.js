@@ -37,6 +37,9 @@ switch (mode) {
         var ROD_EVENT_RANGE = 3000;
         var NUM_STRICT = 9;
         break;
+    default:
+        location.href = "http://localhost:8000/";
+        break;
 }
 
 const SCREEN_WIDTH = 1280,
