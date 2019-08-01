@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Meta tag-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="https://shotlix.herokuapp.com/assets/images/favicon.png">
+    <meta name="description" content="パズルシューティング銃弾を上手く使って道を切り開き、数字を集めてハイスコアを狙いましょう！">
+    <meta name="author" content="shotlix">
+    <meta property="og:url" content="https://shotlix.herokuapp.com">
+    <meta property="og:title" content="shotlix">
+    <meta property="og:description" content="パズルシューティング銃弾を上手く使って道を切り開き、数字を集めてハイスコアを狙いましょう！">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://shotlix.herokuapp.com/assets/images/card.png">
+    <meta property="og:site_name" content="shotlix">
+    <meta name="twitter:site" content="https://shotlix.herokuapp.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="shotlix">
+    <meta name="twitter:description" content="パズルシューティング銃弾を上手く使って道を切り開き、数字を集めてハイスコアを狙いましょう！">
+    <meta name="twitter:url" content="https://shotlix.herokuapp.com">
+    <meta name="twitter:image" content="https://shotlix.herokuapp.com/assets/images/card.png">
+    <link rel="shortcut icon" href="https://shotlix.herokuapp.com/assets/images/favicon.png">
+    <!-- Title-->
+    <title>shotlix</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <script>
+        (function (d) {
+            var config = {
+                kitId: 'gul7zfp',
+                scriptTimeout: 3000,
+                async: true
+            },
+                h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a; h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true; tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } }; s.parentNode.insertBefore(tk, s)
+        })(document);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-container">
+            <a class="twitter-share" href="https://twitter.com/share?url=https://shotlix.herokuapp.com/&amp;text=shotlix/パズルシューティングゲーム"
+                target="_blank" data-show-count="false">
+                <img src="./assets/images/share-alt-light.svg">
+            </a>
+            <img class="top-container__ttl" src="./assets/images/shotlix.svg" alt="">
+            <div class="swiper-container">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div id="easy" class="swiper-slide">easy</div>
+                    <div id="normal" class="swiper-slide">normal</div>
+                    <div id="hard" class="swiper-slide">hard</div>
+                    <div id="expert" class="swiper-slide">expert</div>
+                </div>
+                <!-- If we need navigation buttons -->
+                <div id="button0" class="button swiper-button-prev swiper-button-white"></div>
+                <div id="button1" class="button swiper-button-next swiper-button-white"></div>
+            </div>
+            <form action="/game" method="POST">
+                <input class="top-container__name" type="text" placeholder="Enter your name" name="name" autocomplete="off">
+                <input id="play" class="top-container__submit" value="PLAY" onClick="location.href='./game?mode=normal'">
+                <label>
+                    <input class="top-container__explain__check" type="checkbox">
+                    <div class="top-container__submit top-container__explain">操作説明</div>
+                </label>
+            </form>
+        </div>
+    </div>
+    <script src="./js/swiper.min.js"></script>
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            initialSlide: '1',
+            slidesPerView: '1',
+            centeredSlides: true,
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            width: '250',
+        });
+
+        let easy = document.getElementById('easy'),
+            normal = document.getElementById('normal'),
+            hard = document.getElementById('hard'),
+            expert = document.getElementById('expert'),
+            play = document.getElementById('play');
+
+        document.getElementById("button0").onclick = function () {
+            // ここに#buttonをクリックしたら発生させる処理を記述する
+            if (easy.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=easy'");
+
+            } else if (normal.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=normal'");
+
+            } else if (hard.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=hard'");
+
+            } else if (expert.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=expert'");
+
+            }
+        };
+        document.getElementById("button1").onclick = function () {
+            // ここに#buttonをクリックしたら発生させる処理を記述する
+            if (easy.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=easy'");
+
+            } else if (normal.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=normal'");
+
+            } else if (hard.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=hard'");
+
+            } else if (expert.className == 'swiper-slide swiper-slide-active') {
+
+                play.setAttribute("onclick", "location.href='./game?mode=expert'");
+
+            }
+        };
+
+
+    </script>
+</body>
+
+</html>

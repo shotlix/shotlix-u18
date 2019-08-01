@@ -1,25 +1,61 @@
 phina.globalize();
 
-const SCREEN_WIDTH = 1740,
-    SCREEN_HEIGHT = 960,
-    GRID_SIZE = 60,
+function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+const mode = getParam("mode");
+
+// BULLET_NUM ... 弾数
+// ROD_EVENT_RANGE ... お邪魔を出すイベントの感覚
+// NUM_STRICT ... 一度に出現する数字の数
+switch (mode) {
+    case "easy":
+        var BULLET_NUM = 19;
+        var ROD_EVENT_RANGE = 6000;
+        var NUM_STRICT = 15;
+        break;
+    case "normal":
+        var BULLET_NUM = 16;
+        var ROD_EVENT_RANGE = 5000;
+        var NUM_STRICT = 13;
+        break;
+    case "hard":
+        var BULLET_NUM = 13;
+        var ROD_EVENT_RANGE
+            = 4000;
+        var NUM_STRICT = 11;
+        break;
+    case "expert":
+        var BULLET_NUM = 10;
+        var ROD_EVENT_RANGE = 3000;
+        var NUM_STRICT = 9;
+        break;
+}
+
+const SCREEN_WIDTH = 1280,
+    SCREEN_HEIGHT = 760,
+    GRID_SIZE = 40,
     GRID_NUM_X = SCREEN_WIDTH / GRID_SIZE,
     GRID_NUM_Y = SCREEN_HEIGHT / GRID_SIZE,
     BLOCK_SIZE = GRID_SIZE * 0.9,
     SNAKE_SPEED = GRID_SIZE / 10,
     SNAKE_SIZE = GRID_SIZE / 3,
-    BULLET_NUM = 15,
     BULLET_SPEED = GRID_SIZE / 6,
     BULLET_SIZE = GRID_SIZE / 6,
     NUM_EVENT_RANGE = 2000, // 数字を出すイベント�?�間隔
-    ROD_EVENT_RANGE = 5000, // 棒を出すイベント�?�間隔
     BULLET_EVENT_RANGE = 30000, //�?弾補�??アイ�?�?を�?�すイベント�?�間隔
     POINT_TWICE_EVENT_RANGE = 45000, //ポイント２倍アイ�?�?を�?�すイベント�?�間隔
     BULLET_FOUR_EVENT_RANGE = 37500, //�?弾4つになるアイ�?�?を�?�すイベント�?�感�?
     POINT_TWICE_TIME = 10000, //ポイントが?��倍になる時�?
     BULLET_FOUR_TIME = 7000, //�?弾�?4つになる時�?
     BULLET_PLUS = 5,
-    NUM_STRICT = 7, // 一度に出る数字�?�個数
     direction_array = ['right', 'up', 'left', 'down'],
     MY_COLOR = "white",
     background_color_array = [['#FF837B', '#FFB29A', '#A14848'], ['#7C90F9', '#ACC3FF', '#545895'],
@@ -87,20 +123,20 @@ for (let i = 0; i < GRID_NUM_Y; i++) {
 //ASSET定義
 const ASSETS = {
     image: {
-        'bulletItem': './public/assets/images/bulletItem.png',
-        'pointTwiceItem': './public/assets/images/pointTwiceItem.png',
-        'bulletFourItem': './public/assets/images/bulletFourItem.png',
+        'bulletItem': './assets/images/bulletItem.png',
+        'pointTwiceItem': './assets/images/pointTwiceItem.png',
+        'bulletFourItem': './assets/images/bulletFourItem.png',
     },
     sound: {
-        'getBullet': './public/assets/sounds/getBullet.mp3',
-        'shotBullet': './public/assets/sounds/shotBullet.mp3',
-        'dead': './public/assets/sounds/dead.mp3',
-        'getNum': './public/assets/sounds/getNum.mp3',
-        'alert': './public/assets/sounds/alert.mp3',
-        'rodEvent': './public/assets/sounds/rodEvent.mp3',
-        'getTwiceItem': './public/assets/sounds/getTwiceItem.mp3',
-        'finishLoad': './public/assets/sounds/finishLoad.mp3',
-        'getBulletFourItem': './public/assets/sounds/getBulletFourItem.mp3'
+        'getBullet': './assets/sounds/getBullet.mp3',
+        'shotBullet': './assets/sounds/shotBullet.mp3',
+        'dead': './assets/sounds/dead.mp3',
+        'getNum': './assets/sounds/getNum.mp3',
+        'alert': './assets/sounds/alert.mp3',
+        'rodEvent': './assets/sounds/rodEvent.mp3',
+        'getTwiceItem': './assets/sounds/getTwiceItem.mp3',
+        'finishLoad': './assets/sounds/finishLoad.mp3',
+        'getBulletFourItem': './assets/sounds/getBulletFourItem.mp3'
     },
 };
 
@@ -263,7 +299,7 @@ phina.define('MainScene', {
             fontSize: GRID_SIZE / 2,
             fill: "white",
             fontFamily: "'Orbitron', '?��?�� ゴシ�?ク'"
-        }).addChildTo(this).setPosition(blockGridX.span(1), SCREEN_HEIGHT / 14);
+        }).addChildTo(this).setPosition(blockGridX.span(1), SCREEN_HEIGHT / 16);
         this.scoreLabel = scoreLabel;
 
         let scoreBar = RectangleShape({
@@ -272,7 +308,7 @@ phina.define('MainScene', {
             strokeWidth: 0,
             fill: "white",
             radius: 100
-        }).addChildTo(this).setPosition(SCREEN_WIDTH / 33, SCREEN_HEIGHT / 9.6);
+        }).addChildTo(this).setPosition(SCREEN_WIDTH / 33, SCREEN_HEIGHT / 11);
         scoreBar.setOrigin(0, 0.5);
         this.scoreBar = scoreBar;
 
@@ -332,7 +368,11 @@ phina.define('MainScene', {
         time += app.deltaTime;
         // ポイント２倍期間が過ぎるとそれを止め、一定時間後にまた�?��?
         if (time - point_twice_start_time > POINT_TWICE_TIME && snake.isPointTwice) {
-            snake.fill = "white";
+            if (snake.isBulletFour) {
+                snake.fill = "red";
+            } else {
+                snake.fill = "white";
+            }
             snake.isPointTwice = false;
             point_twice_start_time = time;
             setTimeout(function () {
@@ -340,7 +380,11 @@ phina.define('MainScene', {
             }, POINT_TWICE_EVENT_RANGE);
         }
         if (time - bullet_four_start_time > BULLET_FOUR_TIME && snake.isBulletFour) {
-            snake.fill = "white";
+            if (snake.isPointTwice) {
+                snake.fill = "yellow";
+            } else {
+                snake.fill = "white";
+            }
             snake.isBulletFour = false;
             bullet_four_start_time = time;
             setTimeout(function () {
@@ -483,9 +527,9 @@ phina.define('MainScene', {
                     if (game_array[snake.livePosition[1]][snake.livePosition[0]] !== 0) {
                         if (snake.isPointTwice) {
                             let pointTwiceLabel = Label({
-                                text: "�?2",
+                                text: "×2",
                                 fill: "white",
-                                fontSize: (BLOCK_SIZE - 30) / 4 * 3,
+                                fontSize: 20,
                                 fontFamily: "'Orbitron', 'MS ゴシ�?ク",
                             }).addChildTo(self).setPosition(snake.x + SNAKE_SIZE, snake.y - SNAKE_SIZE);
                             setTimeout(function () {
@@ -805,8 +849,8 @@ phina.define('Bullet', {
 phina.main(function () {
     GameApp({
         startLabel: 'main',
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT,
+        width: 1280,
+        height: 760,
         assets: ASSETS
     }).run();
 });
