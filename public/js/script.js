@@ -17,24 +17,23 @@ const mode = getParam("mode");
 // NUM_STRICT ... 一度に出現する数字の数
 switch (mode) {
     case "easy":
-        var BULLET_NUM = 19;
+        var BULLET_NUM = 25;
         var ROD_EVENT_RANGE = 6000;
         var NUM_STRICT = 15;
         break;
     case "normal":
-        var BULLET_NUM = 16;
-        var ROD_EVENT_RANGE = 5000;
+        var BULLET_NUM = 15;
+        var ROD_EVENT_RANGE = 3500;
         var NUM_STRICT = 13;
         break;
     case "hard":
-        var BULLET_NUM = 13;
-        var ROD_EVENT_RANGE
-            = 4000;
+        var BULLET_NUM = 10;
+        var ROD_EVENT_RANGE = 2500;
         var NUM_STRICT = 11;
         break;
     case "expert":
-        var BULLET_NUM = 10;
-        var ROD_EVENT_RANGE = 3000;
+        var BULLET_NUM = 5;
+        var ROD_EVENT_RANGE = 1000;
         var NUM_STRICT = 9;
         break;
     default:
