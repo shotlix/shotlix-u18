@@ -72,10 +72,11 @@ input {
     padding: 16.5px 0;
     &__check {
       display: none;
-      + .background img {
+      + label .background {
         display: none;
       }
-      &:checked + .background {
+      &:checked + label .background {
+        display: block;
         z-index: 100;
         position: fixed;
         top: 0;
@@ -128,6 +129,7 @@ input {
   }
 }
 .swiper-container {
+  margin: 30px 0 60px 0;
   width: 250px;
   overflow: hidden;
 }
