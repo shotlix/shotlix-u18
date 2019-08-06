@@ -1,8 +1,19 @@
+@font-face {
+  font-family: 'Orbitron';
+  src: url(./assets/font/Orbitron-Medium.ttf);
+}
+
 body {
   margin: 0;
   background-color: #7C90F9;
   font-family: 'Orbitron', 'MS ゴシック';
 }
+
+canvas {
+  height: 100%;
+  width: 100vw;
+}
+
 header img {
   width: 80px;
   position: fixed;
